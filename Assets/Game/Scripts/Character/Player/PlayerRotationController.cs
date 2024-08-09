@@ -9,7 +9,7 @@ namespace MK.Game
     {
         private PlayerController m_PlayerController;
         private bool m_IsShoot;
-        public float Speed => m_PlayerController != null && m_PlayerController.PlayerData != null ? m_PlayerController.PlayerData.speedRotation : 180;
+        public float SpeedRotation => m_PlayerController != null && m_PlayerController.PlayerData != null ? m_PlayerController.PlayerData.speedRotation : 180;
 
         public Quaternion Target
         {
@@ -18,10 +18,8 @@ namespace MK.Game
                 if (m_IsShoot)
                 {
                     IInputManager inputManager = ServiceLocator.Resolve<IInputManager>();
-                    Camera camera = ServiceLocator.Resolve<CameraMain>().camera;
-                    Vector3 mousePosition = camera.ScreenToWorldPoint(inputManager.MouseScreenPosition);
-                    mousePosition.z = m_PlayerController.transform.position.z;
-                    Vector3 dir = mousePosition - m_PlayerController.transform.position;
+                    
+                    Vector3 dir = inputManager.MouseWorldPosition - m_PlayerController.transform.position;
                     float angleInput = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg - 90;
                     return Quaternion.AngleAxis(angleInput, Vector3.forward);
                 }
@@ -39,7 +37,7 @@ namespace MK.Game
             m_PlayerController = i_PlayerController;
 
         }
-        public void UpdateIsShoot(bool i_IsShoot)
+        public void UpdateLookToCursor(bool i_IsShoot)
         {
             m_IsShoot = i_IsShoot;
         }

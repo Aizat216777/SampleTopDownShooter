@@ -6,5 +6,6 @@ namespace MK.Game
 {
     public enum eTags
     {
+        WeaponBonus
     }
 }

@@ -18,6 +18,7 @@ namespace MK.Game
         private RotationStateMachine m_RotationStateMachine;
 
         protected HealthData m_HealthData = new HealthData(1);
+        public HealthData HealthData => m_HealthData;
 
         protected virtual void Start()
         {
@@ -36,21 +37,28 @@ namespace MK.Game
         private void HealthDiedCallback(HealthData i_HealthData)
         {
             OnDied(this);
+            gameObject.SetActive(false);
         }
         private void HealthDamagedCallback(HealthData i_HealthData, int i_Health, int i_OldHealth, int i_Damage)
         {
             OnDamaged(this, i_Health, i_OldHealth, i_Damage);
         }
+        public void Hit(int i_Damage)
+        {
+            m_HealthData.Hit(i_Damage);
+        }
         public void Init(
             int i_Health,
             MovementStateBase.IDirection i_MovementDirection,
             MovementStateBase.ISpeed i_MovementSpeed,
+            List<MovementStateBase.IExtraBehaviour> i_ExtraMoveBehaviours,
             RotationStateMachine.IRotationData i_RotationData)
         {
             m_HealthData.Reset(i_Health);
             m_MovementStateMachine.Init(
                 i_MovementDirection,
-                i_MovementSpeed);
+                i_MovementSpeed,
+                i_ExtraMoveBehaviours);
             m_RotationStateMachine.Init(i_RotationData);
         }
         public void StartMove()

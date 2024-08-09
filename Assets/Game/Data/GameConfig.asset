@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 226ac5d4585e5444d87ea67ddb85636a, type: 3}
+  m_Name: GameConfig
+  m_EditorClassIdentifier: 
+  playerData: {fileID: 11400000, guid: 4730f7d7dd4f01b45a538491acd0f3e0, type: 2}
+  enemySpawnData: {fileID: 11400000, guid: a02d803ada9d22a4784eee46d2d4063c, type: 2}
+  weaponSpawnerData: {fileID: 11400000, guid: 93ebd29c45623cc4fad0aa2fd95a6963, type: 2}
+  prefabsData:
+    weaponBonus: {fileID: 2580355394602042602, guid: 97ddf4496afeb6d48a067637e32035fa,
+      type: 3}
+    m_Weapons:
+    - {fileID: 951615623225527004, guid: b838cecfbba393b479abf72255f8cbdc, type: 3}
+    - {fileID: 6402223840705062732, guid: 13d9d7c2381bae14d952345d160d3a24, type: 3}
+    - {fileID: 1242686086099331855, guid: 905f22793c072244ea2f279a4d881fe2, type: 3}
+    - {fileID: 3102609820689073266, guid: 56afa7d5b04eab14c87067443616e5e1, type: 3}

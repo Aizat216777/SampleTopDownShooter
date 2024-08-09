@@ -18,11 +18,14 @@ namespace MK.Game
         public MovementStateBase.IDirection Direction => m_Direction;
         public MovementStateBase.ISpeed Speed => m_Speed;
         public List<MovementStateBase.IExtraBehaviour> ExtraBehaviours => m_ExtraBehaviours;
-        public void Init(MovementStateBase.IDirection i_MovementDirection, MovementStateBase.ISpeed i_MovementSpeed)
+        public void Init(
+            MovementStateBase.IDirection i_MovementDirection,
+            MovementStateBase.ISpeed i_MovementSpeed,
+            List<MovementStateBase.IExtraBehaviour> i_ExtraBehaviours)
         {
             m_Direction = i_MovementDirection;
             m_Speed = i_MovementSpeed;
+            m_ExtraBehaviours = i_ExtraBehaviours;
         }
-
     }
 }

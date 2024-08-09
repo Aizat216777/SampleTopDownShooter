@@ -12,6 +12,8 @@ namespace MK.Game
         [SerializeField]
         private CharacterBase m_Character;
         [SerializeField]
+        private WeaponController m_WeaponController;
+
         private PlayerData m_PlayerData;
         private PlayerRotationController m_PlayerRotationController;
 
@@ -23,12 +25,25 @@ namespace MK.Game
         public PlayerData PlayerData => m_PlayerData;
         public Vector3 MoveDir => m_MovementDirection;
         public float Speed => m_PlayerData != null ? m_PlayerData.speedMove : 4;
+        public CharacterBase Character => m_Character;
+        public WeaponController WeaponController => m_WeaponController;
 
         // Start is called before the first frame update
         void Start()
         {
+            m_PlayerData = ServiceLocator.Resolve<GameConfig>().playerData;
             m_PlayerRotationController = new PlayerRotationController(this);
-            m_Character.Init(1, this, this, m_PlayerRotationController);
+
+            List<MovementStateBase.IExtraBehaviour> extraMoveBehaviours = new List<MovementStateBase.IExtraBehaviour>();
+            extraMoveBehaviours.Add(new ExtraMoveInField(
+                ServiceLocator.Resolve<IGameField>(),
+                0.5f));
+            m_Character.Init(
+                1, 
+                this,
+                this,
+                extraMoveBehaviours,
+                m_PlayerRotationController);
 
         }
         private void OnEnable()
@@ -69,6 +84,22 @@ namespace MK.Game
                 inputManager.OnInputUp -= InputUpCallback;
             }
         }
+        private void OnTriggerEnter2D(Collider2D collision)
+        {
+            if (collision.CompareTag(nameof(eTags.WeaponBonus)))
+            {
+                if(collision.TryGetComponent(out WeaponBonus weaponBonus))
+                {
+                    m_WeaponController.SetNewWeapon(
+                        Instantiate(
+                            ServiceLocator.Resolve<GameConfig>().prefabsData.GetWeapon(weaponBonus.Type),
+                            transform.position,
+                            transform.rotation,
+                            m_WeaponController.transform));
+                    Destroy(weaponBonus.gameObject);
+                }
+            }
+        }
         private void MoveStartedCallback(InputAction.CallbackContext i_Obj)
         {
             m_Character.StartMove();
@@ -85,11 +116,13 @@ namespace MK.Game
         }
         private void InputDownCallback(int i_PointerID, Vector2 i_ScreenPosition)
         {
-            m_PlayerRotationController.UpdateIsShoot(true);
+            m_PlayerRotationController.UpdateLookToCursor(true);
+            m_WeaponController.UpdateIsShoot(true);
         }
         private void InputUpCallback(int i_PointerID, Vector2 i_ScreenPosition)
         {
-            m_PlayerRotationController.UpdateIsShoot(false);
+            m_PlayerRotationController.UpdateLookToCursor(false);
+            m_WeaponController.UpdateIsShoot(false);
         }
         private void UpdateMovementDirection()
         {
@@ -105,6 +138,7 @@ namespace MK.Game
         {
             base.SetRefs();
             m_Character = GetComponent<CharacterBase>();
+            m_WeaponController = GetComponentInChildren<WeaponController>();
         }
     }
 }

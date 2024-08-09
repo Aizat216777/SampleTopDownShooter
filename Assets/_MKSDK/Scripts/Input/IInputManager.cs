@@ -10,6 +10,7 @@ namespace MK.Game
         event InputManagerEvents.SimpleEvent OnInputDown;
         event InputManagerEvents.SimpleEvent OnInputUp;
         Vector2 MouseScreenPosition { get; }
+        Vector3 MouseWorldPosition { get; }
     }
     public class InputManagerEvents
     {

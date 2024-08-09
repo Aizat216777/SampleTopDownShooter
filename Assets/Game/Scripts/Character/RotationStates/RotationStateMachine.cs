@@ -8,7 +8,7 @@ namespace MK.Game
     public class RotationStateMachine :  StateMachineSimple<RotationStateMachine.eState> 
     {
         private IRotationData m_RotationData;
-        public float Speed => m_RotationData != null ? m_RotationData.Speed : 0;
+        public float Speed => m_RotationData != null ? m_RotationData.SpeedRotation : 0;
         public Quaternion Target => m_RotationData != null ? m_RotationData.Target : Quaternion.identity;
         public void Init(RotationStateMachine.IRotationData i_RotationData)
         {
@@ -20,7 +20,7 @@ namespace MK.Game
         }
         public interface IRotationData
         {
-            float Speed { get; }
+            float SpeedRotation { get; }
             Quaternion Target { get; }
         }
     }

@@ -7,10 +7,11 @@ namespace MK.Game
     [CreateAssetMenu(fileName = "EnemyData", menuName = "MKGames/EnemyData"), System.Serializable]
     public class EnemyData : ScriptableObject
     {
+        public Sprite icon;
         public int health;
         public float speed;
         public int killScore;
-        public float chanceSpawn;
+        public int chanceSpawn;
     }
 }
 

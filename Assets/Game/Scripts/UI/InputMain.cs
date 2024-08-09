@@ -20,7 +20,18 @@ namespace MK.Game
                 }
                 return Vector2.zero;
             }
-        } 
+        }
+
+        public Vector3 MouseWorldPosition 
+        {
+            get
+            {
+                Camera camera = ServiceLocator.Resolve<CameraMain>().camera;
+                Vector3 mousePosition = camera.ScreenToWorldPoint(MouseScreenPosition);
+                mousePosition.z = 0;
+                return mousePosition;
+            }
+        }
 
         public event InputManagerEvents.SimpleEvent OnInputDown = delegate { };
         public event InputManagerEvents.SimpleEvent OnInputUp = delegate { };

@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cbb3acc023328ff42a94fab65d72c132, type: 3}
   m_Name: Simple
   m_EditorClassIdentifier: 
+  icon: {fileID: 21300000, guid: 7561a5ec504b5834cbeea6b58fdf8f8c, type: 3}
   health: 10
   speed: 3
   killScore: 7

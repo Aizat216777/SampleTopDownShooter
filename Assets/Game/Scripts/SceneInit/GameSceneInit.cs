@@ -14,14 +14,20 @@ namespace MK.Game
         public PlayerController playerController;
         public CameraMain cameraMain;
         public InputMain inputMain;
+        public Level level;
+        public GameConfig gameConfig;
+        public GameManager gameManager;
         protected override void Awake()
         {
             base.Awake();
+            ServiceLocator.Register<GameConfig>(gameConfig);
             ServiceLocator.Register<IGameField>(gameField);
             ServiceLocator.Register<PlayerInput>(playerInput);
             ServiceLocator.Register<PlayerController>(playerController);
             ServiceLocator.Register<CameraMain>(cameraMain);
             ServiceLocator.Register<IInputManager>(inputMain);
+            ServiceLocator.Register<ILevel>(level);
+            ServiceLocator.Register<IGameManager>(gameManager);
         }
         protected override void SetRefs()
         {
@@ -31,6 +37,8 @@ namespace MK.Game
             playerController = FindAnyObjectByType<PlayerController>();
             cameraMain = FindAnyObjectByType<CameraMain>();
             inputMain = FindAnyObjectByType<InputMain>();
+            level = FindAnyObjectByType<Level>();
+            gameManager = FindAnyObjectByType<GameManager>();
         }
     }
 }
