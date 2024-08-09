@@ -13,20 +13,22 @@ namespace MK.Game
         private CharacterBase m_Character;
         [SerializeField]
         private PlayerData m_PlayerData;
+        private PlayerRotationController m_PlayerRotationController;
 
         private InputAction m_MoveAction;
         private Action<InputAction.CallbackContext> m_MoveStartedCallback;
         private Action<InputAction.CallbackContext> m_MoveCanceledCallback;
         private Action<InputAction.CallbackContext> m_MovePerformedCallback;
         private Vector3 m_MovementDirection;
-
-        public Vector3 Dir => m_MovementDirection;
+        public PlayerData PlayerData => m_PlayerData;
+        public Vector3 MoveDir => m_MovementDirection;
         public float Speed => m_PlayerData != null ? m_PlayerData.speedMove : 4;
 
         // Start is called before the first frame update
         void Start()
         {
-            m_Character.Init(1, this, this);
+            m_PlayerRotationController = new PlayerRotationController(this);
+            m_Character.Init(1, this, this, m_PlayerRotationController);
 
         }
         private void OnEnable()
@@ -45,6 +47,12 @@ namespace MK.Game
                 m_MoveAction.canceled += m_MoveCanceledCallback;
                 m_MoveAction.performed += m_MovePerformedCallback;
             }
+            IInputManager inputManager = ServiceLocator.Resolve<IInputManager>();
+            if (inputManager != null)
+            {
+                inputManager.OnInputDown += InputDownCallback;
+                inputManager.OnInputUp += InputUpCallback;
+            }
         }
         private void OnDisable()
         {
@@ -53,6 +61,12 @@ namespace MK.Game
                 m_MoveAction.started -= m_MoveStartedCallback;
                 m_MoveAction.canceled -= m_MoveCanceledCallback;
                 m_MoveAction.performed -= m_MovePerformedCallback;
+            }
+            IInputManager inputManager = ServiceLocator.Resolve<IInputManager>();
+            if (inputManager != null)
+            {
+                inputManager.OnInputDown -= InputDownCallback;
+                inputManager.OnInputUp -= InputUpCallback;
             }
         }
         private void MoveStartedCallback(InputAction.CallbackContext i_Obj)
@@ -68,6 +82,14 @@ namespace MK.Game
         {
             UpdateMovementDirection();
             m_Character.StopMove();
+        }
+        private void InputDownCallback(int i_PointerID, Vector2 i_ScreenPosition)
+        {
+            m_PlayerRotationController.UpdateIsShoot(true);
+        }
+        private void InputUpCallback(int i_PointerID, Vector2 i_ScreenPosition)
+        {
+            m_PlayerRotationController.UpdateIsShoot(false);
         }
         private void UpdateMovementDirection()
         {

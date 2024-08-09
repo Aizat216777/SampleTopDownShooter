@@ -8,11 +8,11 @@ namespace MK.Game
     {
         [SerializeField]
         protected MovementStateMachine m_MovementStateMachine;
-        protected Vector3 MovementDirection => m_MovementStateMachine != null && m_MovementStateMachine.Direction!=null ? m_MovementStateMachine.Direction.Dir : Vector3.zero;
+        protected Vector3 MovementDirection => m_MovementStateMachine != null && m_MovementStateMachine.Direction!=null ? m_MovementStateMachine.Direction.MoveDir : Vector3.zero;
         protected float MovementSpeed => m_MovementStateMachine != null && m_MovementStateMachine.Speed != null ? m_MovementStateMachine.Speed.Speed : 0;
         public interface IDirection
         {
-            Vector3 Dir { get; }
+            Vector3 MoveDir { get; }
         }
         public interface ISpeed
         {

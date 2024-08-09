@@ -152,6 +152,7 @@ MonoBehaviour:
   playerInput: {fileID: 1691835039}
   playerController: {fileID: 952597213729476774}
   cameraMain: {fileID: 330585548}
+  inputMain: {fileID: 719642987}
 --- !u!4 &53859464
 Transform:
   m_ObjectHideFlags: 0
@@ -613,6 +614,7 @@ GameObject:
   - component: {fileID: 719642986}
   - component: {fileID: 719642985}
   - component: {fileID: 719642984}
+  - component: {fileID: 719642987}
   m_Layer: 5
   m_Name: MainInputButton
   m_TagString: Untagged
@@ -721,6 +723,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 719642982}
   m_CullTransparentMesh: 1
+--- !u!114 &719642987
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 719642982}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 406cbfa116eac6b4dbb49cb3acdbb0bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &751055272
 PrefabInstance:
   m_ObjectHideFlags: 0

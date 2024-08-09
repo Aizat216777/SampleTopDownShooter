@@ -14,12 +14,14 @@ namespace MK.Game
 
         [SerializeField]
         private MovementStateMachine m_MovementStateMachine;
+        [SerializeField]
+        private RotationStateMachine m_RotationStateMachine;
 
         protected HealthData m_HealthData = new HealthData(1);
 
         protected virtual void Start()
         {
-
+            m_RotationStateMachine.StartState(RotationStateMachine.eState.Simple);
         }
         protected virtual void OnEnable()
         {
@@ -39,12 +41,17 @@ namespace MK.Game
         {
             OnDamaged(this, i_Health, i_OldHealth, i_Damage);
         }
-        public void Init(int i_Health, MovementStateBase.IDirection i_MovementDirection, MovementStateBase.ISpeed i_MovementSpeed)
+        public void Init(
+            int i_Health,
+            MovementStateBase.IDirection i_MovementDirection,
+            MovementStateBase.ISpeed i_MovementSpeed,
+            RotationStateMachine.IRotationData i_RotationData)
         {
             m_HealthData.Reset(i_Health);
             m_MovementStateMachine.Init(
                 i_MovementDirection,
                 i_MovementSpeed);
+            m_RotationStateMachine.Init(i_RotationData);
         }
         public void StartMove()
         {
@@ -58,6 +65,7 @@ namespace MK.Game
         {
             base.SetRefs();
             m_MovementStateMachine = GetComponentInChildren<MovementStateMachine>();
+            m_RotationStateMachine = GetComponentInChildren<RotationStateMachine>();
         }
     }
 }

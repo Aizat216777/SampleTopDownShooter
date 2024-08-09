@@ -13,6 +13,7 @@ namespace MK.Game
         public PlayerInput playerInput;
         public PlayerController playerController;
         public CameraMain cameraMain;
+        public InputMain inputMain;
         protected override void Awake()
         {
             base.Awake();
@@ -20,6 +21,7 @@ namespace MK.Game
             ServiceLocator.Register<PlayerInput>(playerInput);
             ServiceLocator.Register<PlayerController>(playerController);
             ServiceLocator.Register<CameraMain>(cameraMain);
+            ServiceLocator.Register<IInputManager>(inputMain);
         }
         protected override void SetRefs()
         {
@@ -28,6 +30,7 @@ namespace MK.Game
             playerInput = FindAnyObjectByType<PlayerInput>();
             playerController = FindAnyObjectByType<PlayerController>();
             cameraMain = FindAnyObjectByType<CameraMain>();
+            inputMain = FindAnyObjectByType<InputMain>();
         }
     }
 }

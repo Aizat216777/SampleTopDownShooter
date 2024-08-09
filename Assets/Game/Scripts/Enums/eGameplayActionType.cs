@@ -7,5 +7,6 @@ namespace MK.Game
     public enum eGameplayActionType
     {
         Move,
+        MousePosition,
     }
 }
